@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Sélection Catégorie - Jeu Geek 🎮</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #2d3436, #000);
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      background: #0984e3;
+      color: white;
+      border: none;
+      padding: 20px 40px;
+      font-size: 1.5em;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      min-width: 150px;
+    }
+
+    .btn:hover {
+      background: #74b9ff;
+      transform: scale(1.05);
+    }
+
+    .btn-allstar {
+      background: #d63031;
+      font-size: 2em;
+      padding: 20px 60px;
+      margin-top: 20px;
+      border-radius: 25px;
+    }
+
+    .btn-allstar:hover {
+      background: #ff7675;
+    }
+
+    .btn-back {
+      margin-top: 40px;
+      background: #636e72;
+      padding: 12px 30px;
+      font-size: 1.2em;
+      border-radius: 10px;
+    }
+
+    .btn-back:hover {
+      background: #b2bec3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Choisis ta catégorie</h1>
+
+  <!-- Grille 2x2 -->
+  <div class="grid">
+    <button class="btn" onclick="location.href='manga.html'">📖 Manga</button>
+    <button class="btn" onclick="location.href='serie.html'">📺 Série</button>
+    <button class="btn" onclick="location.href='film.html'">🎬 Film</button>
+    <button class="btn" onclick="location.href='jeu.html'">🎮 Jeu Vidéo</button>
+  </div>
+
+  <!-- Gros bouton All-Star -->
+  <button class="btn btn-allstar" onclick="location.href='allstar.html'" >⭐ All-Star</button>
+
+  <!-- Bouton retour -->
+  <button class="btn btn-back" onclick="location.href='index.html'">⬅ Retour</button>
+</body>
+</html>

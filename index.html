@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Accueil  🎮</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: url("background.jpg") no-repeat center center/cover; /* image de fond */
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    h1 {
+      font-size: 4em;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+
+    .btn-play {
+      background: #ff4757;
+      color: white;
+      border: none;
+      padding: 20px 60px;
+      font-size: 2em;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    }
+
+    .btn-play:hover {
+      background: #e84118;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body> 
+  <h1>Jeu des gros puants 🎮</h1>
+  <button class="btn-play" onclick="location.href='sélection.html'">▶ Play</button>
+</body>
+</html>

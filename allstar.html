@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mode Manga - Jeu Geek 🎮</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #6c5ce7, #0984e3);
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    }
+
+    #word {
+      font-size: 3em;
+      font-weight: bold;
+      margin: 20px;
+      text-align: center;
+    }
+
+    #timer {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    #score {
+      font-size: 1.8em;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 15px 40px;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      margin: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    #validate {
+      background-color: #00b894;
+      color: white;
+    }
+
+    #validate:hover {
+      background-color: #55efc4;
+      transform: scale(1.05);
+    }
+
+    #skip {
+      background-color: #d63031;
+      color: white;
+    }
+
+    #skip:hover {
+      background-color: #ff7675;
+      transform: scale(1.05);
+    }
+
+    #restart {
+      background-color: #636e72;
+      color: white;
+    }
+
+    #restart:hover {
+      background-color: #b2bec3;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>Mode All-Star ⭐</h1>
+  <div id="score">Score: 0</div>
+  <div id="timer">⏱ 60 sec</div>
+  <div id="word">Cliquez sur Valider ou Skip pour commencer</div>
+
+  <div>
+    <button id="validate">✔ Valider</button>
+    <button id="skip">⏭ Skip</button>
+    <button id="restart">🔄 Restart</button>
+  </div>
+
+  <script>
+    // Liste d'exemple de mangas
+    const words = [
+  "One Piece", "Naruto", "Bleach", "Dragon Ball", "Attaque des Titans",
+  "Death Note", "Fullmetal Alchemist", "My Hero Academia", "Hunter x Hunter","One Punch Man",
+  "Fairy Tail", "Demon Slayer", "Tokyo Ghoul", "Black Clover","Sword Art Online", 
+  "JoJo's Bizarre Adventure", "Mob Psycho 100", "Re:Zero", "The Seven Deadly Sins", "Haikyuu!!", 
+  "Food Wars!", "Boruto","Gintama","Noragami", "Parasyte", 
+  "Erased", "Kaguya-sama: Love is War", "Berserk","Dr. Stone", 
+  "Chainsaw Man","Neon Genesis Evangelion", "Akira", "Great Teacher Onizuka","Vinland Saga", 
+  "Nana","Saint Seiya","The Promised Neverland","Kuroko's Basketball","Highschool of the Dead", 
+  "Nisekoi", "Toradora!","Code Geass","Hajime no Ippo", "Fire Force",
+  "Tokyo Revengers","Konosuba","Solo Leveling", "Frieren", "The quintessential quintuplets", 
+  "Baki", "Oshi no ko", "lazarus" , "your lie in april" , "assassination classroom", 
+  "Bocchi the rock", "Albator", "Cyberpunk : Edgerunners", "Classroom of the elite", "Jujutsu Kaisen", 
+  "Mashle", "pokémon", "Your Name", "Le chateau ambulant", " Suzume", 
+  "Les enfants du temps", "Mon voisin Totoro", "Le voyage de Chihiro", "Le garçon et le héron",
+  "Fortnite", "The Witcher", "Minecraft", "Celeste", "Hollow Knight",
+  "Red Dead Redemption 2", "Cyberpunk 2077", "Among Us", "Stardew Valley", "Dead Cells",
+  "God of War", "Overwatch", "Hades", "Dark Souls", "Sekiro: Shadows Die Twice",
+  "DOOM", "Resident Evil", "Clair Obscur : Expedition 33", "The Legend of Zelda: Breath of the Wild", "Animal Crossing: New Horizons",
+  "Fall Guys: Ultimate Knockout", "Apex Legends", "Valorant", "Ghost of Tsushima", "Persona",
+    "Final Fantasy VII Remake", "Super Smash Bros. Ultimate", "Spider-Man", "Monster Hunter: World", "Assassin's Creed Valhalla",
+  "League of Legends", "Horizon Zero Dawn", "NieR: Automata", "Cuphead", "Splatoon",
+  "GTA V", "Skyrim", "Dragon Age: Inquisition", "Borderlands", "Battlefield",
+  "Call of Duty", "Diablo ", "Ratchet & Clank", "FIFA", "Ghostrunner",
+  "Little Nightmares", "Minecraft", "Tetris", "Kingdom Hearts III", "Watch Dogs",
+  "Bloodborne", "Metro Exodus", "Angry Birds", "Batman Arkham", "It Takes Two",
+  "Dead by Daylight", "Forza Horizon", "Genshin Impact", "Need for Speed", "Overcooked!"  ,
+  "Inception", "The Dark Knight", "Interstellar", "Transformers", "Pulp Fiction",
+  "Le seigneur des anneaux", "Matrix", "Gladiator", "Avengers: Infinity war", "Fight Club",
+  "Forrest Gump", "Les dents de la mer", "Joker", "Titanic", "Intouchables",
+  "le parrain", "Jurassic Park", "Le roi lion", "Star Wars", "Mad Max",
+  "Blade Runner 2049", "Mars Express", "F1", "rambo", "Le silence des agneaux",
+  "Gran Turismo", "Napoléon", "gardien de la galaxie", "La La Land", "Coco",
+  "Toy Story", "La-haut", "Saw", "Footloose", "Black Panther",
+  "Captain America", "Doctor Strange", "Iron Man", "Thor: Ragnarok", "Logan",
+  "Deadpool", "Seul sur Mars", "Gravity", "vice-versa", "Zootopie",
+  "Spirit", "Princess Mononoke", "Your Name", "les indestructibles", "Ratatouille",
+    "Stranger Things", "The Mandalorian", "Breaking Bad", "The Witcher", "Game of Thrones",
+  "The Boys", "The Umbrella Academy", "Daredevil", "Loki", "Doctor Who",
+  "Black Mirror", "The Crown", "The Office (US)", "Brooklyn Nine-Nine", "Fargo",
+  "Peaky Blinders", "Vikings", "The Expanse", "Narcos", "Lost",
+  "Better Call Saul", "Sherlock", "Westworld", "The Handmaid’s Tale", "Mindhunter",
+  "Succession", "True Detective", "House of Cards", "Stranger", "The Wire", "Arcane(la meilleure série all time)",
+      // Tu peux en ajouter une centaine ici
+    ];
+
+    let score = 0;
+    let currentWord = "";
+    let timeLeft = 60; // chrono global
+    let timerInterval;
+
+    function getRandomWord() {
+      const randomIndex = Math.floor(Math.random() * words.length);
+      currentWord = words[randomIndex];
+      document.getElementById("word").textContent = currentWord;
+    }
+
+    function startGame() {
+      score = 0;
+      timeLeft = 60;
+      document.getElementById("score").textContent = "Score: " + score;
+      document.getElementById("timer").textContent = "⏱ " + timeLeft + " sec";
+      getRandomWord();
+
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById("timer").textContent = "⏱ " + timeLeft + " sec";
+        if(timeLeft <= 0) {
+          clearInterval(timerInterval);
+          document.getElementById("word").textContent = "⏳ Temps écoulé !";
+        }
+      }, 1000);
+    }
+
+    document.getElementById("validate").addEventListener("click", () => {
+      if(timeLeft > 0) {
+        score++;
+        document.getElementById("score").textContent = "Score: " + score;
+        getRandomWord();
+      }
+    });
+
+    document.getElementById("skip").addEventListener("click", () => {
+      if(timeLeft > 0) {
+        getRandomWord();
+      }
+    });
+
+    document.getElementById("restart").addEventListener("click", () => {
+      startGame();
+    });
+
+    // Commencer directement
+    startGame();
+  </script>
+  <button class="btn btn-back" onclick="location.href='sélection.html'">⬅ Retour</button>
+</body>
+</html>
